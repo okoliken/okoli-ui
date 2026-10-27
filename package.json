@@ -1,0 +1,16 @@
+{
+  "name": "okoli-ui",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "storybook": "npm run storybook --workspace apps/storybook",
+    "storybook:ios": "npm run storybook:ios --workspace apps/storybook",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "storybook:web": "npm run storybook:web --workspace apps/storybook",
+    "docs": "npm run docs --workspace apps/storybook",
+    "docs:build": "npm run docs:build --workspace apps/storybook"
+  }
+}

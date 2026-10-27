@@ -1,0 +1,84 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# @okoli/ui
+
+A React Native UI kit for Expo apps: one theme contract, one motion language, and the components that keep getting rebuilt. Every app gets the same feel (quiet presses, the iOS sheet curve, a shake on a wrong PIN), and each brand changes only its tokens.
+
+Use the **Theme** menu in the toolbar to see every page in each theme. `light` and `dark` are the defaults; `payra`, `ember`, `grape` and `ocean` are example brands.
+
+## Install
+
+```sh
+npx expo install @okoli/ui react-native-unistyles react-native-nitro-modules react-native-edge-to-edge \
+  react-native-reanimated react-native-worklets react-native-gesture-handler react-native-svg expo-haptics expo-blur
+```
+
+The kit only depends on packages the Expo SDK manages, so upgrading is one `npx expo install --fix`.
+
+## 1. Babel
+
+The Unistyles plugin skips `node_modules`, so list the kit:
+
+```js
+// babel.config.js
+plugins: [["react-native-unistyles/plugin", { root: "src", autoProcessPaths: ["@okoli/ui"] }]];
+```
+
+## 2. Themes
+
+Register themes before anything renders. Import this file first in your entry file or root layout.
+
+```ts
+// src/unistyles.ts
+import { StyleSheet } from "react-native-unistyles";
+// "@okoli/ui/theme", not "@okoli/ui": the main entry loads the components,
+// whose stylesheets must not be created before StyleSheet.configure runs.
+import { createTheme, darkTheme, lightTheme } from "@okoli/ui/theme";
+
+const brand = createTheme(lightTheme, {
+  colors: { primary: "#F97316", onPrimary: "#FFFFFF", secondary: "#431407", onSecondary: "#FFEDD5" },
+  fonts: { bold: { fontFamily: "PlusJakartaSans_700Bold" } },
+  radius: { pill: 14 },
+});
+const themes = { light: brand, dark: darkTheme };
+
+type AppThemes = typeof themes;
+declare module "react-native-unistyles" {
+  export interface UnistylesThemes extends AppThemes {}
+}
+
+StyleSheet.configure({ themes, settings: { initialTheme: "light" } });
+```
+
+## 3. Use it
+
+```tsx
+import { Button, Sheet, Text } from "@okoli/ui";
+
+<Text variant="h3" weight="bold">Send money</Text>
+<Button title="Continue" onPress={next} />
+```
+
+Your own stylesheets read the same tokens, so screens stay on the kit's rhythm:
+
+```ts
+const styles = StyleSheet.create((theme) => ({
+  card: { padding: theme.spacing.lg, borderRadius: theme.radius.xl, backgroundColor: theme.colors.surface },
+}));
+```
+
+## What's inside
+
+| | |
+| --- | --- |
+| **Foundations** | Colors, Text, Spacing & Radius, Motion |
+| **Button** | 5 variants × 5 colours × 3 sizes, icons, loading, double-tap guard, haptic |
+| **Tappable** | Pressable that dims and ticks a haptic |
+| **Sheet** | Bottom sheet: blur backdrop, iOS curve, drag to dismiss, animated height |
+| **Keypad / PinPad** | Number pad with press discs; PIN dots that shake and clear on rejection |
+| **SearchBar** | 48pt search field with an always-visible clear button |
+| **PrivacyShield** | Blurs the app in the app switcher |
+
+This site is the web build of the stories. Haptics, gestures and blur behave best on a device: run `npm run storybook:ios` for the phone Storybook.

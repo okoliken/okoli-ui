@@ -1,0 +1,52 @@
+{
+  "name": "okoli-ui-storybook",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@expo/metro-runtime": "~57.0.17",
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "@okoli/ui": "^0.1.0",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-native-community/datetimepicker": "9.1.0",
+    "@react-native-community/slider": "5.2.0",
+    "expo": "~57.0.31",
+    "expo-blur": "~57.0.3",
+    "expo-dev-client": "~57.0.20",
+    "expo-haptics": "~57.0.3",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-edge-to-edge": "^1.8.2",
+    "react-native-gesture-handler": "~2.32.0",
+    "react-native-nitro-modules": "^0.37.1",
+    "react-native-reanimated": "4.5.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-svg": "15.15.4",
+    "react-native-unistyles": "^3.6.0",
+    "react-native-web": "^0.21.2",
+    "react-native-worklets": "0.10.1"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "^10.6.4",
+    "@storybook/addon-ondevice-actions": "^10.7.0",
+    "@storybook/addon-ondevice-controls": "^10.7.0",
+    "@storybook/react-native": "^10.7.0",
+    "@storybook/react-native-web-vite": "^10.6.4",
+    "@types/react": "~19.2.2",
+    "storybook": "^10.6.4",
+    "typescript": "~6.0.3",
+    "vite": "^7.3.7"
+  },
+  "scripts": {
+    "storybook": "expo start --dev-client --port 8097",
+    "storybook:ios": "expo run:ios",
+    "storybook:android": "expo run:android",
+    "storybook-generate": "sb-rn-get-stories",
+    "typecheck": "tsc --noEmit",
+    "storybook:web": "expo start --web --port 8097",
+    "docs": "storybook dev -p 6006",
+    "docs:build": "storybook build -o storybook-static"
+  },
+  "private": true
+}
